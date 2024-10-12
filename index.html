@@ -33,7 +33,11 @@
 				z: fallecidosPorMillon, // Colores correspondientes a cada estado
 				text: nombre_estados, // Nombre completo de cada estado
 				color_continuous_scale: "Viridis", // Escala de colores
-				colorbar: { title: 'Número de fallecidos por millón de habitantes' } // Título de la barra de colores
+				colorbar: {
+					title: {
+						text: 'Número de fallecidos<br>por millón de<br>habitantes' // Usa <br> para los saltos de línea
+					}
+				} // Título de la barra de colores
 			}];
 
 			const layout = {
