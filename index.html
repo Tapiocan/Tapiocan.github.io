@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Tornados en Estados Unidos</title>
+	<script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class="div_titulo">
+		<h1>Número de fallecidos por tornados en EEUU</h1>
+	</div>
+
+	<div id="myMap" style="width: 100%; height: 600px;"></div>
+
+	<script>
+		fetch('fallecidos_por_estado.json').then(response => response.json()).then(datos => {
+			const estados = datos.map(item => item.estado);
+			const fallecidos = datos.map(item => item['núm de fallecidos']);
+
+			const data = [{
+				type: 'choropleth',
+				locationmode: 'USA-states', // Modo de ubicación basado en los estados de EEUU
+				locations: estados, // Estados: California, Texas, Nueva York
+				z: fallecidos, // Colores correspondientes a cada estado
+				color_continuous_scale: "Viridis", // Escala de colores
+				colorbar: { title: 'Número de fallecidos' } // Título de la barra de colores
+			}];
+
+			const layout = {
+				geo: {
+					scope: 'usa', // Centrar en Estados Unidos
+					showlakes: true, // Mostrar lagos
+					lakecolor: 'rgb(255, 255, 255)' // Color de los lagos
+				},
+			};
+
+			Plotly.newPlot('myMap', data, layout);
+
+		})
+
+
+	</script>
+
+</body>
+
+</html>
