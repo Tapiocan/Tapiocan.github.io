@@ -43,7 +43,9 @@
 				}
 			};
 
-			Plotly.newPlot('myMap', data, layout);
+			Plotly.newPlot('myMap', data, layout, {
+				staticPlot: true
+			});
 
 		})
 
