@@ -17,19 +17,23 @@
 	<script>
 		fetch('fallecidos_por_estado.json').then(response => response.json()).then(datos => {
 			const estados = datos.map(item => item.estado);
-			console.log(estados);
 			const nombre_estados = ['Alaska', 'Alabama', 'Arkansas', 'Arizona', 'California', 'Colorado', 'Connecticut', 'Distrito de Columbia', 'Delaware', 'Florida', 'Georgia', 'Hawái', 'Iowa', 'Idaho', 'Illinois', 'Indiana', 'Kansas', 'Kentucky', 'Luisiana', 'Massachusetts', 'Maryland', 'Maine', 'Míchigan', 'Minnesota', 'Misuri', 'Misisipi', 'Montana', 'Carolina del Norte', 'Dakota del Norte', 'Nebraska', 'Nuevo Hampshire', 'Nueva Jersey', 'Nuevo México', 'Nevada', 'Nueva York', 'Ohio', 'Oklahoma', 'Oregón', 'Pensilvania', 'Puerto Rico', 'Rhode Island', 'Carolina del Sur', 'Dakota del Sur', 'Tennessee', 'Texas', 'Utah', 'Virginia', 'Islas Vírgenes', 'Vermont', 'Washington', 'Wisconsin', 'Virginia Occidental', 'Wyoming']
-			const fallecidos = datos.map(item => item['núm de fallecidos']);
-			console.log(fallecidos);
-			const poblacion = datos.map(item => item['población']);
+			// const fallecidos = datos.map(item => item['núm de fallecidos']);
+			// const poblacion = datos.map(item => item['población']);
+			const fallecidosPorMillon = datos.map(item => {
+				const fallecidos = item['núm de fallecidos'];
+				const poblacion = item['población'];
+				return (fallecidos / poblacion) * 1000000; // Resultado por millón de habitantes
+			})
+
 			const data = [{
 				type: 'choropleth',
 				locationmode: 'USA-states', // Modo de ubicación basado en los estados de EEUU
-				locations: estados, // Estados: California, Texas, Nueva York
-				z: fallecidos, // Colores correspondientes a cada estado
-				text: nombre_estados,
+				locations: estados,
+				z: fallecidosPorMillon, // Colores correspondientes a cada estado
+				text: nombre_estados, // Nombre completo de cada estado
 				color_continuous_scale: "Viridis", // Escala de colores
-				colorbar: { title: 'Número de fallecidos' } // Título de la barra de colores
+				colorbar: { title: 'Número de fallecidos por millón de habitantes' } // Título de la barra de colores
 			}];
 
 			const layout = {
@@ -37,10 +41,11 @@
 					scope: 'usa', // Centrar en Estados Unidos
 					showlakes: true, // Mostrar lagos
 					lakecolor: 'rgb(255, 255, 255)', // Color de los lagos
-					labelalias: {
-						WY: 'Wyoming' // Mapeo de la abreviatura al nombre completo
-					}
-				}
+				},
+				annotations: [ // Anotaciones del gráfico
+
+
+				]
 			};
 
 			Plotly.newPlot('myMap', data, layout, { scrollZoom: false, displayModeBar: false });
