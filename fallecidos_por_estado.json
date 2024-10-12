@@ -1,214 +1,267 @@
 [
   {
-    "estado": "AK",
-    "núm de fallecidos": 0
+    "estado": "Alaska",
+    "núm de fallecidos": 0,
+    "población": 732673
   },
   {
-    "estado": "AL",
-    "núm de fallecidos": 668
+    "estado": "Alabama",
+    "núm de fallecidos": 668,
+    "población": 5108468
   },
   {
-    "estado": "AR",
-    "núm de fallecidos": 400
+    "estado": "Arkansas",
+    "núm de fallecidos": 400,
+    "población": 3067732
   },
   {
-    "estado": "AZ",
-    "núm de fallecidos": 3
+    "estado": "Arizona",
+    "núm de fallecidos": 3,
+    "población": 7431344
   },
   {
-    "estado": "CA",
-    "núm de fallecidos": 0
+    "estado": "California",
+    "núm de fallecidos": 0,
+    "población": 38965193
   },
   {
-    "estado": "CO",
-    "núm de fallecidos": 5
+    "estado": "Colorado",
+    "núm de fallecidos": 5,
+    "población": 5877610
   },
   {
-    "estado": "CT",
-    "núm de fallecidos": 4
+    "estado": "Connecticut",
+    "núm de fallecidos": 4,
+    "población": 3617176
   },
   {
-    "estado": "DC",
-    "núm de fallecidos": 0
+    "estado": "Distrito de Columbia",
+    "núm de fallecidos": 0,
+    "población": 712816
   },
   {
-    "estado": "DE",
-    "núm de fallecidos": 2
+    "estado": "Delaware",
+    "núm de fallecidos": 2,
+    "población": 1031890
   },
   {
-    "estado": "FL",
-    "núm de fallecidos": 166
+    "estado": "Florida",
+    "núm de fallecidos": 166,
+    "población": 22610726
   },
   {
-    "estado": "GA",
-    "núm de fallecidos": 231
+    "estado": "Georgia",
+    "núm de fallecidos": 231,
+    "población": 11029227
   },
   {
-    "estado": "HI",
-    "núm de fallecidos": 0
+    "estado": "Hawái",
+    "núm de fallecidos": 0,
+    "población": 1441553
   },
   {
-    "estado": "IA",
-    "núm de fallecidos": 88
+    "estado": "Iowa",
+    "núm de fallecidos": 88,
+    "población": 3207004
   },
   {
-    "estado": "ID",
-    "núm de fallecidos": 0
+    "estado": "Idaho",
+    "núm de fallecidos": 0,
+    "población": 1964726
   },
   {
-    "estado": "IL",
-    "núm de fallecidos": 225
+    "estado": "Illinois",
+    "núm de fallecidos": 225,
+    "población": 12549689
   },
   {
-    "estado": "IN",
-    "núm de fallecidos": 268
+    "estado": "Indiana",
+    "núm de fallecidos": 268,
+    "población": 6862199
   },
   {
-    "estado": "KS",
-    "núm de fallecidos": 194
+    "estado": "Kansas",
+    "núm de fallecidos": 194,
+    "población": 2940546
   },
   {
-    "estado": "KY",
-    "núm de fallecidos": 194
+    "estado": "Kentucky",
+    "núm de fallecidos": 194,
+    "población": 4526154
   },
   {
-    "estado": "LA",
-    "núm de fallecidos": 224
+    "estado": "Luisiana",
+    "núm de fallecidos": 224,
+    "población": 4573749
   },
   {
-    "estado": "MA",
-    "núm de fallecidos": 105
+    "estado": "Massachusetts",
+    "núm de fallecidos": 105,
+    "población": 7001399
   },
   {
-    "estado": "MD",
-    "núm de fallecidos": 9
+    "estado": "Maryland",
+    "núm de fallecidos": 9,
+    "población": 6180253
   },
   {
-    "estado": "ME",
-    "núm de fallecidos": 1
+    "estado": "Maine",
+    "núm de fallecidos": 1,
+    "población": 1395722
   },
   {
-    "estado": "MI",
-    "núm de fallecidos": 218
+    "estado": "Míchigan",
+    "núm de fallecidos": 218,
+    "población": 10037261
   },
   {
-    "estado": "MN",
-    "núm de fallecidos": 98
+    "estado": "Minnesota",
+    "núm de fallecidos": 98,
+    "población": 5737915
   },
   {
-    "estado": "MO",
-    "núm de fallecidos": 350
+    "estado": "Misuri",
+    "núm de fallecidos": 350,
+    "población": 6196156
   },
   {
-    "estado": "MS",
-    "núm de fallecidos": 476
+    "estado": "Misisipi",
+    "núm de fallecidos": 476,
+    "población": 2939690
   },
   {
-    "estado": "MT",
-    "núm de fallecidos": 4
+    "estado": "Montana",
+    "núm de fallecidos": 4,
+    "población": 1132812
   },
   {
-    "estado": "NC",
-    "núm de fallecidos": 122
+    "estado": "Carolina del Norte",
+    "núm de fallecidos": 122,
+    "población": 10835491
   },
   {
-    "estado": "ND",
-    "núm de fallecidos": 28
+    "estado": "Dakota del Norte",
+    "núm de fallecidos": 28,
+    "población": 783926
   },
   {
-    "estado": "NE",
-    "núm de fallecidos": 60
+    "estado": "Nebraska",
+    "núm de fallecidos": 60,
+    "población": 1978379
   },
   {
-    "estado": "NH",
-    "núm de fallecidos": 1
+    "estado": "Nuevo Hampshire",
+    "núm de fallecidos": 1,
+    "población": 1402054
   },
   {
-    "estado": "NJ",
-    "núm de fallecidos": 1
+    "estado": "Nueva Jersey",
+    "núm de fallecidos": 1,
+    "población": 9290841
   },
   {
-    "estado": "NM",
-    "núm de fallecidos": 4
+    "estado": "Nuevo México",
+    "núm de fallecidos": 4,
+    "población": 2114371
   },
   {
-    "estado": "NV",
-    "núm de fallecidos": 0
+    "estado": "Nevada",
+    "núm de fallecidos": 0,
+    "población": 3194176
   },
   {
-    "estado": "NY",
-    "núm de fallecidos": 31
+    "estado": "Nueva York",
+    "núm de fallecidos": 31,
+    "población": 19571216
   },
   {
-    "estado": "OH",
-    "núm de fallecidos": 226
+    "estado": "Ohio",
+    "núm de fallecidos": 226,
+    "población": 11785935
   },
   {
-    "estado": "OK",
-    "núm de fallecidos": 439
+    "estado": "Oklahoma",
+    "núm de fallecidos": 439,
+    "población": 4053824
   },
   {
-    "estado": "OR",
-    "núm de fallecidos": 6
+    "estado": "Oregón",
+    "núm de fallecidos": 6,
+    "población": 4233358
   },
   {
-    "estado": "PA",
-    "núm de fallecidos": 49
+    "estado": "Pensilvania",
+    "núm de fallecidos": 49,
+    "población": 12961683
   },
   {
-    "estado": "PR",
-    "núm de fallecidos": 0
+    "estado": "Puerto Rico",
+    "núm de fallecidos": 0,
+    "población": 3193694
   },
   {
-    "estado": "RI",
-    "núm de fallecidos": 0
+    "estado": "Rhode Island",
+    "núm de fallecidos": 0,
+    "población": 1095962
   },
   {
-    "estado": "SC",
-    "núm de fallecidos": 71
+    "estado": "Carolina del Sur",
+    "núm de fallecidos": 71,
+    "población": 5373555
   },
   {
-    "estado": "SD",
-    "núm de fallecidos": 17
+    "estado": "Dakota del Sur",
+    "núm de fallecidos": 17,
+    "población": 919318
   },
   {
-    "estado": "TN",
-    "núm de fallecidos": 407
+    "estado": "Tennessee",
+    "núm de fallecidos": 407,
+    "población": 7126489
   },
   {
-    "estado": "TX",
-    "núm de fallecidos": 594
+    "estado": "Texas",
+    "núm de fallecidos": 594,
+    "población": 30503301
   },
   {
-    "estado": "UT",
-    "núm de fallecidos": 1
+    "estado": "Utah",
+    "núm de fallecidos": 1,
+    "población": 3417734
   },
   {
-    "estado": "VA",
-    "núm de fallecidos": 38
+    "estado": "Virginia",
+    "núm de fallecidos": 38,
+    "población": 8715698
   },
   {
-    "estado": "VI",
-    "núm de fallecidos": 0
+    "estado": "Islas Vírgenes",
+    "núm de fallecidos": 0,
+    "población": 106405
   },
   {
-    "estado": "VT",
-    "núm de fallecidos": 0
+    "estado": "Vermont",
+    "núm de fallecidos": 0,
+    "población": 647464
   },
   {
-    "estado": "WA",
-    "núm de fallecidos": 0
+    "estado": "Washington",
+    "núm de fallecidos": 0,
+    "población": 7812880
   },
   {
-    "estado": "WI",
-    "núm de fallecidos": 101
+    "estado": "Wisconsin",
+    "núm de fallecidos": 101,
+    "población": 5910955
   },
   {
-    "estado": "WV",
-    "núm de fallecidos": 2
+    "estado": "Virginia Occidental",
+    "núm de fallecidos": 2,
+    "población": 1770071
   },
   {
-    "estado": "WY",
-    "núm de fallecidos": 4
+    "estado": "Wyoming",
+    "núm de fallecidos": 4,
+    "población": 584057
   }
 ]
