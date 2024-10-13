@@ -11,9 +11,9 @@
 
 #context {
     position: absolute;
-    pointer-events: none; /* Para que no interfiera con el mapa */
-    top: 12%; /* Ajusta el porcentaje según la ubicación deseada en el mapa */
-    left: 12%; /* Ajusta el porcentaje para fijar en el mapa */
-    width: 75%; /* Ajusta el tamaño del SVG */
-    height: auto; /* Mantener la proporción del SVG */
+    pointer-events: none;
+    top: 15%; /* Ajusta esta posición según la ubicación deseada en el mapa */
+    left: 13%; /* Ajusta esta posición según la ubicación deseada en el mapa */
+    width: 75%; /* Mantén el tamaño en relación con el contenedor */
+    height: auto; /* Ajusta automáticamente la altura manteniendo la proporción */
 }

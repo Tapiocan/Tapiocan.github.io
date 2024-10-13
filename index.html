@@ -12,9 +12,11 @@
 		<h1>Número de fallecidos por tornados en EEUU</h1>
 	</div>
 
-	<div id="myMap" style="width: 100%; height: 600px;">
+	<div id="myMap" style="position: relative; width: 100%; height: 600px;">
+		<!-- Mapa Plotly -->
 		<img id="context" src="map.svg" />
 	</div>
+	
 
 	<script>
 		fetch('fallecidos_por_estado.json').then(response => response.json()).then(datos => {
@@ -58,6 +60,18 @@
 			Plotly.newPlot('myMap', data, layout, { scrollZoom: false, displayModeBar: false, staticPlot: false });
 
 		})
+
+		window.addEventListener('resize', function () {
+        const mapElement = document.getElementById('myMap');
+        const contextElement = document.getElementById('context');
+
+        // Calcula nuevas posiciones y tamaños basados en el tamaño actual del mapa
+        const mapRect = mapElement.getBoundingClientRect();
+
+        contextElement.style.width = mapRect.width * 0.3 + 'px'; // Ajusta el ancho relativo al tamaño del mapa
+        contextElement.style.top = mapRect.top + 'px';  // Fija la posición top del SVG respecto al mapa
+        contextElement.style.left = mapRect.left + 'px'; // Fija la posición left del SVG respecto al mapa
+    });
 
 
 	</script>
