@@ -46,11 +46,14 @@
 					showlakes: true, // Mostrar lagos
 					lakecolor: 'rgb(255, 255, 255)', // Color de los lagos
 				},
+				dragmode:false,
 				annotations: [ // Anotaciones del gráfico
-				],
+	
+
+				]
 			};
 
-			Plotly.newPlot('myMap', data, layout, { scrollZoom: false, displayModeBar: false });
+			Plotly.newPlot('myMap', data, layout, { scrollZoom: false, displayModeBar: false, staticPlot: false });
 
 		})
 
