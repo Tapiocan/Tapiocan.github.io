@@ -3,11 +3,17 @@
     justify-content: center;
 }
 
+#myMap {
+    position: relative; /* Importante para posicionar el SVG dentro del mapa */
+    width: 100%;
+    height: 600px;
+}
+
 #context {
     position: absolute;
-    pointer-events: none;
-    top: 0%;
-    left: 2%;
-    width: 90%;
-    height: 90%;
+    pointer-events: none; /* Para que no interfiera con el mapa */
+    top: 12%; /* Ajusta el porcentaje según la ubicación deseada en el mapa */
+    left: 12%; /* Ajusta el porcentaje para fijar en el mapa */
+    width: 75%; /* Ajusta el tamaño del SVG */
+    height: auto; /* Mantener la proporción del SVG */
 }
