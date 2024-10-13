@@ -23,7 +23,7 @@
 			const fallecidosPorMillon = datos.map(item => {
 				const fallecidos = item['núm de fallecidos'];
 				const poblacion = item['población'];
-				return (fallecidos / poblacion) * 1000000; // Resultado por millón de habitantes
+				return ((fallecidos / poblacion) * 1000000).toFixed(2); // Resultado por millón de habitantes
 			})
 
 			const data = [{
@@ -47,9 +47,7 @@
 					lakecolor: 'rgb(255, 255, 255)', // Color de los lagos
 				},
 				annotations: [ // Anotaciones del gráfico
-
-
-				]
+				],
 			};
 
 			Plotly.newPlot('myMap', data, layout, { scrollZoom: false, displayModeBar: false });
@@ -59,7 +57,7 @@
 
 	</script>
 
-<img id="context" src="map.svg"/>
+	<img id="context" src="map.svg" />
 
 </body>
 
