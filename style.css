@@ -6,8 +6,8 @@
 #context {
     position: absolute;
     pointer-events: none;
-    top: 75px;
-    left: -75px;
+    top: 0%;
+    left: 2%;
     width: 90%;
     height: 90%;
 }
