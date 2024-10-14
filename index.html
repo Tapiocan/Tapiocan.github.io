@@ -12,8 +12,11 @@
 		<h1>Número de fallecidos por tornados en EEUU</h1>
 	</div>
 
-	<div id="myMap" style="position: relative; width: 100%; height: 600px;">
-		<!-- Mapa Plotly -->
+	<div id="myMapContainer" style="position: relative; width: 100%; height: 600px;">
+		<!-- Gráfico -->
+		<div id="myMap" style="width: 100%; height: 100%;"></div>
+	
+		<!-- Imagen sobrepuesta al gráfico -->
 		<img id="context" src="map.svg" />
 	</div>
 	
@@ -22,61 +25,43 @@
 		fetch('fallecidos_por_estado.json').then(response => response.json()).then(datos => {
 			const estados = datos.map(item => item.estado);
 			const nombre_estados = ['Alaska', 'Alabama', 'Arkansas', 'Arizona', 'California', 'Colorado', 'Connecticut', 'Distrito de Columbia', 'Delaware', 'Florida', 'Georgia', 'Hawái', 'Iowa', 'Idaho', 'Illinois', 'Indiana', 'Kansas', 'Kentucky', 'Luisiana', 'Massachusetts', 'Maryland', 'Maine', 'Míchigan', 'Minnesota', 'Misuri', 'Misisipi', 'Montana', 'Carolina del Norte', 'Dakota del Norte', 'Nebraska', 'Nuevo Hampshire', 'Nueva Jersey', 'Nuevo México', 'Nevada', 'Nueva York', 'Ohio', 'Oklahoma', 'Oregón', 'Pensilvania', 'Puerto Rico', 'Rhode Island', 'Carolina del Sur', 'Dakota del Sur', 'Tennessee', 'Texas', 'Utah', 'Virginia', 'Islas Vírgenes', 'Vermont', 'Washington', 'Wisconsin', 'Virginia Occidental', 'Wyoming']
-			// const fallecidos = datos.map(item => item['núm de fallecidos']);
-			// const poblacion = datos.map(item => item['población']);
 			const fallecidosPorMillon = datos.map(item => {
 				const fallecidos = item['núm de fallecidos'];
 				const poblacion = item['población'];
 				return ((fallecidos / poblacion) * 1000000).toFixed(2); // Resultado por millón de habitantes
-			})
-
+			});
+	
 			const data = [{
 				type: 'choropleth',
-				locationmode: 'USA-states', // Modo de ubicación basado en los estados de EEUU
+				locationmode: 'USA-states', 
 				locations: estados,
-				z: fallecidosPorMillon, // Colores correspondientes a cada estado
-				text: nombre_estados, // Nombre completo de cada estado
-				color_continuous_scale: "Viridis", // Escala de colores
+				z: fallecidosPorMillon, 
+				text: nombre_estados,
+				color_continuous_scale: "Viridis", 
 				colorbar: {
 					title: {
-						text: 'Número de fallecidos<br>por millón de<br>habitantes' // Usa <br> para los saltos de línea
+						text: 'Número de fallecidos<br>por millón de<br>habitantes' 
 					}
-				} // Título de la barra de colores
+				}
 			}];
-
+	
 			const layout = {
 				geo: {
-					scope: 'usa', // Centrar en Estados Unidos
-					showlakes: true, // Mostrar lagos
-					lakecolor: 'rgb(255, 255, 255)', // Color de los lagos
+					scope: 'usa',
+					showlakes: true,
+					lakecolor: 'rgb(255, 255, 255)',
 				},
-				dragmode:false,
-				annotations: [ // Anotaciones del gráfico
-	
-
-				]
+				dragmode: false,
+				annotations: []
 			};
-
-			Plotly.newPlot('myMap', data, layout, { scrollZoom: false, displayModeBar: false, staticPlot: false });
-
-		})
-
-		window.addEventListener('resize', function () {
-        const mapElement = document.getElementById('myMap');
-        const contextElement = document.getElementById('context');
-
-        // Calcula nuevas posiciones y tamaños basados en el tamaño actual del mapa
-        const mapRect = mapElement.getBoundingClientRect();
-
-        contextElement.style.width = mapRect.width * 0.3 + 'px'; // Ajusta el ancho relativo al tamaño del mapa
-        contextElement.style.top = mapRect.top + 'px';  // Fija la posición top del SVG respecto al mapa
-        contextElement.style.left = mapRect.left + 'px'; // Fija la posición left del SVG respecto al mapa
-    });
-
-
-	</script>
-
 	
+			Plotly.newPlot('myMap', data, layout, { scrollZoom: false, displayModeBar: false, staticPlot: false });
+			window.onresize = function() {
+				Plotly.Plots.resize('myMap');
+			};
+			
+    });
+	</script>
 
 </body>
 
