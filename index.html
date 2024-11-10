@@ -5,6 +5,7 @@
 	<title>Tornados en Estados Unidos</title>
 	<script src="https://cdn.plot.ly/plotly-2.34.0.min.js"></script>
 	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -15,40 +16,44 @@
 	<div id="myMapContainer" style="position: relative; width: 100%; height: 600px;">
 		<!-- Gráfico -->
 		<div id="myMap" style="width: 100%; height: 100%;"></div>
-	
+
 		<!-- Imagen sobrepuesta al gráfico -->
 		<img id="context" src="map.svg" />
 	</div>
-	
+
 	<dialog id="popUpGraph">
 		<button id="btn-cerrar-grafico"> cerrar </button>
 		<div id="myMap2" style="width: 100%; height: 400px;"></div> <!-- Contenedor para el segundo gráfico -->
 	</dialog>
 
 	<script>
-	fetch('fallecidos_por_estado.json').then(response => response.json()).then(datos => {
+		fetch('fallecidos_por_estado.json').then(response => response.json()).then(datos => {
 			const estados = datos.map(item => item.estado);
 			const nombre_estados = ['Alaska', 'Alabama', 'Arkansas', 'Arizona', 'California', 'Colorado', 'Connecticut', 'Distrito de Columbia', 'Delaware', 'Florida', 'Georgia', 'Hawái', 'Iowa', 'Idaho', 'Illinois', 'Indiana', 'Kansas', 'Kentucky', 'Luisiana', 'Massachusetts', 'Maryland', 'Maine', 'Míchigan', 'Minnesota', 'Misuri', 'Misisipi', 'Montana', 'Carolina del Norte', 'Dakota del Norte', 'Nebraska', 'Nuevo Hampshire', 'Nueva Jersey', 'Nuevo México', 'Nevada', 'Nueva York', 'Ohio', 'Oklahoma', 'Oregón', 'Pensilvania', 'Puerto Rico', 'Rhode Island', 'Carolina del Sur', 'Dakota del Sur', 'Tennessee', 'Texas', 'Utah', 'Virginia', 'Islas Vírgenes', 'Vermont', 'Washington', 'Wisconsin', 'Virginia Occidental', 'Wyoming']
 			const fallecidosPorMillon = datos.map(item => {
 				const fallecidos = item['núm de fallecidos'];
 				const poblacion = item['población'];
-				return ((fallecidos / poblacion) * 1000000).toFixed(2); // Resultado por millón de habitantes
+				return (((fallecidos / poblacion) * 1000000).toFixed(2));
 			});
-	
+
 			const data = [{
 				type: 'choropleth',
-				locationmode: 'USA-states', 
+				locationmode: 'USA-states',
 				locations: estados,
-				z: fallecidosPorMillon, 
+				z: fallecidosPorMillon,
 				text: nombre_estados,
-				color_continuous_scale: "Viridis", 
+
+				hovertemplate: '%{text}<br>Fallecidos por millón: %{z}', // Plantilla para hover
+				name: "",
+
+				color_continuous_scale: "Viridis",
 				colorbar: {
 					title: {
-						text: 'Número de fallecidos<br>por millón de<br>habitantes' 
+						text: 'Número de fallecidos<br>por millón de<br>habitantes'
 					}
 				}
 			}];
-	
+
 			const layout = {
 				geo: {
 					scope: 'usa',
@@ -58,9 +63,9 @@
 				dragmode: false,
 				annotations: []
 			};
-	
+
 			Plotly.newPlot('myMap', data, layout, { scrollZoom: false, displayModeBar: false, staticPlot: false });
-			window.onresize = function() {
+			window.onresize = function () {
 				Plotly.Plots.resize('myMap');
 			};
 
@@ -70,12 +75,12 @@
 			const modal = document.querySelector("#popUpGraph");
 			const botonCerrar = document.querySelector("#btn-cerrar-grafico");
 
-			document.getElementById('myMap').on('plotly_click', function(data) {
+			document.getElementById('myMap').on('plotly_click', function (data) {
 				const estado = data.points[0].location;
 
 				const muertesPorMillon = data.points[0].z;
 
-				const volumen = Math.max(0, Math.min(1, muertesPorMillon /200));
+				const volumen = Math.max(0, Math.min(1, muertesPorMillon / 200));
 
 				audio.volume = volumen;
 				audio.currentTime = 0;
@@ -85,7 +90,7 @@
 				timeout = setTimeout(() => {
 					audio.pause();
 				}, 16000);
-				
+
 				cargarSegundoGrafico(estado);
 
 			});
@@ -93,59 +98,83 @@
 			botonCerrar.addEventListener("click", () => {
 				modal.close();
 			})
-			
-    });
 
-	function cargarSegundoGrafico(estado) {
-		fetch('tornados.json').then(response => response.json()).then(datos => {
-			const estadoDatos = datos.filter(item => item.st === estado);
-			
-			if (estadoDatos.length > 0) {
-				const fechas = estadoDatos.map(item => new Date(item.date));
-				const valoresFat = estadoDatos.map(item => item.fat);
-
-				// Modificar el gráfico para ser un gráfico de puntos (scatter plot)
-				const data2 = [{
-					type: 'scatter',
-					mode: 'markers',  // Usamos 'markers' para hacer puntos
-					x: fechas,
-					y: valoresFat,
-					name: 'Tornados',
-					marker: {
-						color: 'rgb(55, 83, 109)',
-						size: 10  // Tamaño de los puntos
-					}
-				}];
-
-				const layout2 = {
-					title: `Fallecidos en el estado ${estado}`,
-					xaxis: {
-						title: 'Fecha',
-						type: 'date',  // Definimos que el eje X es de tipo fecha
-					},
-					yaxis: {
-						title: 'Fallecidos'
-					},
-					showlegend: true,  // Activamos la leyenda
-                	legend: {
-						orientation: 'v',  // Coloca la leyenda verticalmente
-                    	x: 1.05,  // Coloca la leyenda fuera del gráfico a la derecha
-                    	y: 1,     // Alinea la leyenda con la parte superior
-                    	xanchor: 'left',  // El punto de anclaje es la izquierda de la leyenda
-                    	yanchor: 'top'   // El punto de anclaje es la parte superior de la leyenda
-                }  // Ocultamos la leyenda
-				};
-
-				// Dibujar el segundo gráfico de puntos en el pop-up
-				Plotly.newPlot('myMap2', data2, layout2);
-				document.querySelector("#popUpGraph").showModal();
-			} else {
-				alert('No hay datos disponibles para este estado');
-			}
 		});
-	}
 
-	
+		function cargarSegundoGrafico(estado) {
+			const nombreEstados = {
+				"AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
+				"CO": "Colorado", "CT": "Connecticut", "DE": "Delaware", "FL": "Florida", "GA": "Georgia",
+				"HI": "Hawái", "ID": "Idaho", "IL": "Illinois", "IN": "Indiana", "IA": "Iowa", "KS": "Kansas",
+				"KY": "Kentucky", "LA": "Luisiana", "ME": "Maine", "MD": "Maryland", "MA": "Massachusetts",
+				"MI": "Míchigan", "MN": "Minnesota", "MS": "Misisipi", "MO": "Misuri", "MT": "Montana",
+				"NE": "Nebraska", "NV": "Nevada", "NH": "Nuevo Hampshire", "NJ": "Nueva Jersey",
+				"NM": "Nuevo México", "NY": "Nueva York", "NC": "Carolina del Norte", "ND": "Dakota del Norte",
+				"OH": "Ohio", "OK": "Oklahoma", "OR": "Oregón", "PA": "Pensilvania", "RI": "Rhode Island",
+				"SC": "Carolina del Sur", "SD": "Dakota del Sur", "TN": "Tennessee", "TX": "Texas", "UT": "Utah",
+				"VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "Virginia Occidental", "WI": "Wisconsin",
+				"WY": "Wyoming", "DC": "Distrito de Columbia", "PR": "Puerto Rico", "VI": "Islas Vírgenes"
+			}
+			fetch('tornados.json').then(response => response.json()).then(datos => {
+				const estadoDatos = datos.filter(item => item.st === estado);
+				console.log(estado)
+				if (estadoDatos.length > 0) {
+					const fatPorAño = estadoDatos.reduce((acumulador, item) => {
+						const año = new Date(item.date).getFullYear(); // Obtener el año de la fecha
+						if (!acumulador[año]) {
+							acumulador[año] = 0; // Inicializar con 0 si el año no existe
+						}
+						acumulador[año] += item.fat; // Sumar el valor de "fat"
+						return acumulador;
+					}, {});
+
+					const años = Object.keys(fatPorAño);
+					const valoresFat = Object.values(fatPorAño);
+					const nombreCompletoEstado = nombreEstados[estado] || estado;  // Usa el nombre completo o la abreviatura si no existe en el mapa
+
+
+					// Modificar el gráfico para ser un gráfico de puntos (scatter plot)
+					const data2 = [{
+						type: 'scatter',
+						mode: 'markers',  // Usamos 'markers' para hacer puntos
+						x: años,
+						y: valoresFat,
+						name: 'Muertes anuales <br>por tornados',
+						marker: {
+							color: 'rgb(55, 83, 109)',
+							size: 10  // Tamaño de los puntos
+						}
+					}];
+
+					const layout2 = {
+						title: `Fallecidos por año en ${nombreCompletoEstado}`,
+						xaxis: {
+							title: 'Año',
+							type: 'year',  // Definimos que el eje X es de tipo fecha
+						},
+						yaxis: {
+							title: 'Fallecidos'
+						},
+						showlegend: true,  // Activamos la leyenda
+						legend: {
+							orientation: 'v',  // Coloca la leyenda verticalmente
+							x: 1.05,  // Coloca la leyenda fuera del gráfico a la derecha
+							y: 1,     // Alinea la leyenda con la parte superior
+							xanchor: 'left',  // El punto de anclaje es la izquierda de la leyenda
+							yanchor: 'top'   // El punto de anclaje es la parte superior de la leyenda
+						}  // Ocultamos la leyenda
+					};
+
+					// Dibujar el segundo gráfico de puntos en el pop-up
+					Plotly.newPlot('myMap2', data2, layout2);
+					document.querySelector("#popUpGraph").showModal();
+				} else {
+					alert('No hay datos disponibles para este estado');
+				}
+			});
+		}
+
+
 
 	</script>
 
