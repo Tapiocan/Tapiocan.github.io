@@ -22,7 +22,7 @@
 	
 
 	<script>
-		fetch('fallecidos_por_estado.json').then(response => response.json()).then(datos => {
+	fetch('fallecidos_por_estado.json').then(response => response.json()).then(datos => {
 			const estados = datos.map(item => item.estado);
 			const nombre_estados = ['Alaska', 'Alabama', 'Arkansas', 'Arizona', 'California', 'Colorado', 'Connecticut', 'Distrito de Columbia', 'Delaware', 'Florida', 'Georgia', 'Hawái', 'Iowa', 'Idaho', 'Illinois', 'Indiana', 'Kansas', 'Kentucky', 'Luisiana', 'Massachusetts', 'Maryland', 'Maine', 'Míchigan', 'Minnesota', 'Misuri', 'Misisipi', 'Montana', 'Carolina del Norte', 'Dakota del Norte', 'Nebraska', 'Nuevo Hampshire', 'Nueva Jersey', 'Nuevo México', 'Nevada', 'Nueva York', 'Ohio', 'Oklahoma', 'Oregón', 'Pensilvania', 'Puerto Rico', 'Rhode Island', 'Carolina del Sur', 'Dakota del Sur', 'Tennessee', 'Texas', 'Utah', 'Virginia', 'Islas Vírgenes', 'Vermont', 'Washington', 'Wisconsin', 'Virginia Occidental', 'Wyoming']
 			const fallecidosPorMillon = datos.map(item => {
@@ -59,8 +59,32 @@
 			window.onresize = function() {
 				Plotly.Plots.resize('myMap');
 			};
+
+			let timeout;
+
+		const audio = new Audio("audio_tornado.mp3");
+
+		document.getElementById('myMap').on('plotly_click', function(data) {
+		const estado = data.points[0].location;
+
+		const muertesPorMillon = data.points[0].z;
+
+		const volumen = Math.max(0, Math.min(1, muertesPorMillon /200));
+
+		audio.volume = volumen;
+		audio.currentTime = 0;
+
+		audio.play();
+		clearTimeout(timeout);
+		timeout = setTimeout(() => {
+			audio.pause();
+		}, 16000);
+	})
 			
     });
+
+	
+
 	</script>
 
 </body>
