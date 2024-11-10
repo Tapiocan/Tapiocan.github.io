@@ -20,6 +20,10 @@
 		<img id="context" src="map.svg" />
 	</div>
 	
+	<dialog id="popUpGraph">
+		<button id="btn-cerrar-grafico"> cerrar </button>
+		<div id="myMap2" style="width: 100%; height: 400px;"></div> <!-- Contenedor para el segundo gráfico -->
+	</dialog>
 
 	<script>
 	fetch('fallecidos_por_estado.json').then(response => response.json()).then(datos => {
@@ -62,26 +66,84 @@
 
 			let timeout;
 
-		const audio = new Audio("audio_tornado.mp3");
+			const audio = new Audio("audio_tornado.mp3");
+			const modal = document.querySelector("#popUpGraph");
+			const botonCerrar = document.querySelector("#btn-cerrar-grafico");
 
-		document.getElementById('myMap').on('plotly_click', function(data) {
-		const estado = data.points[0].location;
+			document.getElementById('myMap').on('plotly_click', function(data) {
+				const estado = data.points[0].location;
 
-		const muertesPorMillon = data.points[0].z;
+				const muertesPorMillon = data.points[0].z;
 
-		const volumen = Math.max(0, Math.min(1, muertesPorMillon /200));
+				const volumen = Math.max(0, Math.min(1, muertesPorMillon /200));
 
-		audio.volume = volumen;
-		audio.currentTime = 0;
+				audio.volume = volumen;
+				audio.currentTime = 0;
 
-		audio.play();
-		clearTimeout(timeout);
-		timeout = setTimeout(() => {
-			audio.pause();
-		}, 16000);
-	})
+				audio.play();
+				clearTimeout(timeout);
+				timeout = setTimeout(() => {
+					audio.pause();
+				}, 16000);
+				
+				cargarSegundoGrafico(estado);
+
+			});
+
+			botonCerrar.addEventListener("click", () => {
+				modal.close();
+			})
 			
     });
+
+	function cargarSegundoGrafico(estado) {
+		fetch('tornados.json').then(response => response.json()).then(datos => {
+			const estadoDatos = datos.filter(item => item.st === estado);
+			
+			if (estadoDatos.length > 0) {
+				const fechas = estadoDatos.map(item => new Date(item.date));
+				const valoresFat = estadoDatos.map(item => item.fat);
+
+				// Modificar el gráfico para ser un gráfico de puntos (scatter plot)
+				const data2 = [{
+					type: 'scatter',
+					mode: 'markers',  // Usamos 'markers' para hacer puntos
+					x: fechas,
+					y: valoresFat,
+					name: 'Tornados',
+					marker: {
+						color: 'rgb(55, 83, 109)',
+						size: 10  // Tamaño de los puntos
+					}
+				}];
+
+				const layout2 = {
+					title: `Fallecidos en el estado ${estado}`,
+					xaxis: {
+						title: 'Fecha',
+						type: 'date',  // Definimos que el eje X es de tipo fecha
+					},
+					yaxis: {
+						title: 'Fallecidos'
+					},
+					showlegend: true,  // Activamos la leyenda
+                	legend: {
+						orientation: 'v',  // Coloca la leyenda verticalmente
+                    	x: 1.05,  // Coloca la leyenda fuera del gráfico a la derecha
+                    	y: 1,     // Alinea la leyenda con la parte superior
+                    	xanchor: 'left',  // El punto de anclaje es la izquierda de la leyenda
+                    	yanchor: 'top'   // El punto de anclaje es la parte superior de la leyenda
+                }  // Ocultamos la leyenda
+				};
+
+				// Dibujar el segundo gráfico de puntos en el pop-up
+				Plotly.newPlot('myMap2', data2, layout2);
+				document.querySelector("#popUpGraph").showModal();
+			} else {
+				alert('No hay datos disponibles para este estado');
+			}
+		});
+	}
 
 	
 
